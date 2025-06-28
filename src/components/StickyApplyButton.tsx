@@ -57,12 +57,17 @@ const StickyApplyButton: React.FC = () => {
   return (
     <>
       {/* Desktop Sticky Button - HORIZONTAL Layout Centered at bottom */}
-      <div className="hidden lg:block force-fixed-bottom-center">
-        <div className={`transition-all duration-700 ease-out ${
-          isVisible 
-            ? 'translate-y-0 opacity-100 scale-100' 
-            : 'translate-y-full opacity-0 scale-95'
-        }`}>
+      <div className="hidden lg:block">
+        <div 
+          className="force-fixed-bottom-center"
+          style={{
+            transition: 'all 0.7s ease-out',
+            opacity: isVisible ? 1 : 0,
+            visibility: isVisible ? 'visible' : 'hidden',
+            transform: `translateX(-50%) ${isVisible ? 'translateY(0)' : 'translateY(100%)'}`,
+            pointerEvents: isVisible ? 'auto' : 'none'
+          }}
+        >
           <div className="relative">
             {/* Floating Sparkles Animation */}
             <div className="absolute -inset-8 pointer-events-none">
@@ -162,128 +167,130 @@ const StickyApplyButton: React.FC = () => {
         </div>
       </div>
 
-      {/* COMPLETELY NEW Mobile Sticky Button - Fixed positioned from scratch */}
-      <div 
-        className="lg:hidden"
-        style={{
-          position: 'fixed',
-          bottom: '120px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 9999,
-          transition: 'all 0.7s ease-out',
-          opacity: isVisible ? 1 : 0,
-          visibility: isVisible ? 'visible' : 'hidden',
-          pointerEvents: isVisible ? 'auto' : 'none'
-        }}
-      >
-        <div className="relative">
-          {/* Enhanced Mobile Floating Sparkles */}
-          <div className="absolute -inset-6 pointer-events-none">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className={`absolute w-2 h-2 bg-futurie-yellow-400 rounded-full animate-float opacity-70 ${
-                  animationPhase === i % 3 ? 'animate-ping' : 'animate-pulse'
-                }`}
-                style={{
-                  left: `${20 + Math.random() * 60}%`,
-                  top: `${20 + Math.random() * 60}%`,
-                  animationDelay: `${i * 0.4}s`,
-                  animationDuration: `${1.5 + Math.random() * 1.5}s`
-                }}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={handleApplyClick}
-            className="group relative bg-gradient-to-r from-futurie-pink-500 via-futurie-purple-500 to-futurie-blue-500 hover:from-futurie-pink-600 hover:via-futurie-purple-600 hover:to-futurie-blue-600 text-white font-bold py-4 px-6 rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-4xl active:scale-95"
-            style={{ 
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-              transform: 'translateZ(0)',
-              WebkitTransform: 'translateZ(0)'
-            }}
-          >
-            {/* Enhanced Mobile Background Animations */}
-            <div className="absolute inset-0 bg-gradient-to-r from-futurie-yellow-400 via-futurie-pink-400 to-futurie-purple-400 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
-            
-            {/* Enhanced Mobile Shimmer */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 transform -skew-x-12 group-hover:translate-x-full" />
-            
-            {/* Enhanced Mobile Sparkles */}
-            <div className="absolute -top-2 -right-2">
-              <Sparkles className={`w-4 h-4 text-futurie-yellow-300 transition-all duration-300 ${
-                animationPhase === 0 ? 'animate-spin' : 'animate-pulse'
-              }`} />
-            </div>
-            
-            <div className="absolute -bottom-2 -left-2">
-              <Star className={`w-3 h-3 text-futurie-pink-300 transition-all duration-300 ${
-                animationPhase === 1 ? 'animate-bounce' : 'animate-pulse'
-              }`} />
-            </div>
-
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2">
-              <Zap className={`w-3 h-3 text-futurie-blue-300 transition-all duration-300 ${
-                animationPhase === 2 ? 'animate-ping' : 'animate-pulse'
-              }`} />
-            </div>
-            
-            {/* Mobile Button Content - HORIZONTAL Layout */}
-            <div className="relative z-10 flex items-center space-x-3">
-              <GraduationCap className={`w-6 h-6 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 group-hover:text-futurie-yellow-200 ${
-                animationPhase === 1 ? 'animate-bounce' : ''
-              }`} />
-              
-              <div className="flex items-center space-x-2">
-                <span 
-                  className={`text-base font-bold whitespace-nowrap transform transition-all duration-500 group-hover:scale-110 group-hover:text-futurie-yellow-100 mobile-safe-text ${
-                    animationPhase === 0 ? 'animate-pulse' : ''
+      {/* Mobile and Tablet Sticky Button - Enhanced Fixed Positioning */}
+      <div className="lg:hidden">
+        <div 
+          className="force-fixed-bottom-center"
+          style={{
+            position: 'fixed',
+            bottom: '120px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 99999,
+            transition: 'all 0.7s ease-out',
+            opacity: isVisible ? 1 : 0,
+            visibility: isVisible ? 'visible' : 'hidden',
+            pointerEvents: isVisible ? 'auto' : 'none'
+          }}
+        >
+          <div className="relative">
+            {/* Enhanced Mobile Floating Sparkles */}
+            <div className="absolute -inset-6 pointer-events-none">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className={`absolute w-2 h-2 bg-futurie-yellow-400 rounded-full animate-float opacity-70 ${
+                    animationPhase === i % 3 ? 'animate-ping' : 'animate-pulse'
                   }`}
-                  style={{ 
-                    textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden'
+                  style={{
+                    left: `${20 + Math.random() * 60}%`,
+                    top: `${20 + Math.random() * 60}%`,
+                    animationDelay: `${i * 0.4}s`,
+                    animationDuration: `${1.5 + Math.random() * 1.5}s`
                   }}
-                >
-                  APPLY NOW
-                </span>
-                
-                <ArrowRight className={`w-5 h-5 transition-all duration-500 group-hover:translate-x-1 group-hover:scale-125 group-hover:text-futurie-yellow-200 ${
-                  animationPhase === 2 ? 'animate-bounce' : ''
-                }`} />
-              </div>
+                />
+              ))}
             </div>
-            
-            {/* Enhanced Mobile Glow Effects */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-futurie-pink-400 to-futurie-purple-400 opacity-0 group-hover:opacity-50 transition-all duration-500 blur-sm" />
-            
-            {/* Enhanced Mobile Pulsing Ring */}
-            <div className={`absolute -inset-2 rounded-3xl border-2 border-futurie-yellow-300 transition-all duration-1000 ${
-              animationPhase === 1 ? 'scale-115 opacity-70' : 'scale-100 opacity-40'
-            }`} />
 
-            {/* Additional Mobile Glow Ring */}
-            <div className={`absolute -inset-4 rounded-3xl border border-futurie-pink-300 transition-all duration-1500 ${
-              animationPhase === 2 ? 'scale-120 opacity-50' : 'scale-100 opacity-20'
-            }`} />
-          </button>
-
-          {/* Enhanced Mobile Floating Tooltip */}
-          <div className={`absolute -top-12 left-1/2 transform -translate-x-1/2 transition-all duration-300 pointer-events-none ${
-            animationPhase === 2 ? 'opacity-100 -translate-y-2' : 'opacity-0 translate-y-0'
-          }`}>
-            <div 
-              className="bg-futurie-purple-600 text-white text-sm font-bold px-4 py-2 rounded-lg shadow-xl whitespace-nowrap mobile-safe-text border border-futurie-purple-400"
+            <button
+              onClick={handleApplyClick}
+              className="group relative bg-gradient-to-r from-futurie-pink-500 via-futurie-purple-500 to-futurie-blue-500 hover:from-futurie-pink-600 hover:via-futurie-purple-600 hover:to-futurie-blue-600 text-white font-bold py-4 px-6 rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-4xl active:scale-95"
               style={{ 
-                textShadow: '0 1px 2px rgba(0,0,0,0.5)',
                 backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden'
+                WebkitBackfaceVisibility: 'hidden',
+                transform: 'translateZ(0)',
+                WebkitTransform: 'translateZ(0)'
               }}
             >
-              🚀 Join Now!
+              {/* Enhanced Mobile Background Animations */}
+              <div className="absolute inset-0 bg-gradient-to-r from-futurie-yellow-400 via-futurie-pink-400 to-futurie-purple-400 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              
+              {/* Enhanced Mobile Shimmer */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 transform -skew-x-12 group-hover:translate-x-full" />
+              
+              {/* Enhanced Mobile Sparkles */}
+              <div className="absolute -top-2 -right-2">
+                <Sparkles className={`w-4 h-4 text-futurie-yellow-300 transition-all duration-300 ${
+                  animationPhase === 0 ? 'animate-spin' : 'animate-pulse'
+                }`} />
+              </div>
+              
+              <div className="absolute -bottom-2 -left-2">
+                <Star className={`w-3 h-3 text-futurie-pink-300 transition-all duration-300 ${
+                  animationPhase === 1 ? 'animate-bounce' : 'animate-pulse'
+                }`} />
+              </div>
+
+              <div className="absolute -top-1 left-1/2 transform -translate-x-1/2">
+                <Zap className={`w-3 h-3 text-futurie-blue-300 transition-all duration-300 ${
+                  animationPhase === 2 ? 'animate-ping' : 'animate-pulse'
+                }`} />
+              </div>
+              
+              {/* Mobile Button Content - HORIZONTAL Layout */}
+              <div className="relative z-10 flex items-center space-x-3">
+                <GraduationCap className={`w-6 h-6 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 group-hover:text-futurie-yellow-200 ${
+                  animationPhase === 1 ? 'animate-bounce' : ''
+                }`} />
+                
+                <div className="flex items-center space-x-2">
+                  <span 
+                    className={`text-base font-bold whitespace-nowrap transform transition-all duration-500 group-hover:scale-110 group-hover:text-futurie-yellow-100 mobile-safe-text ${
+                      animationPhase === 0 ? 'animate-pulse' : ''
+                    }`}
+                    style={{ 
+                      textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                      backfaceVisibility: 'hidden',
+                      WebkitBackfaceVisibility: 'hidden'
+                    }}
+                  >
+                    APPLY NOW
+                  </span>
+                  
+                  <ArrowRight className={`w-5 h-5 transition-all duration-500 group-hover:translate-x-1 group-hover:scale-125 group-hover:text-futurie-yellow-200 ${
+                    animationPhase === 2 ? 'animate-bounce' : ''
+                  }`} />
+                </div>
+              </div>
+              
+              {/* Enhanced Mobile Glow Effects */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-futurie-pink-400 to-futurie-purple-400 opacity-0 group-hover:opacity-50 transition-all duration-500 blur-sm" />
+              
+              {/* Enhanced Mobile Pulsing Ring */}
+              <div className={`absolute -inset-2 rounded-3xl border-2 border-futurie-yellow-300 transition-all duration-1000 ${
+                animationPhase === 1 ? 'scale-115 opacity-70' : 'scale-100 opacity-40'
+              }`} />
+
+              {/* Additional Mobile Glow Ring */}
+              <div className={`absolute -inset-4 rounded-3xl border border-futurie-pink-300 transition-all duration-1500 ${
+                animationPhase === 2 ? 'scale-120 opacity-50' : 'scale-100 opacity-20'
+              }`} />
+            </button>
+
+            {/* Enhanced Mobile Floating Tooltip */}
+            <div className={`absolute -top-12 left-1/2 transform -translate-x-1/2 transition-all duration-300 pointer-events-none ${
+              animationPhase === 2 ? 'opacity-100 -translate-y-2' : 'opacity-0 translate-y-0'
+            }`}>
+              <div 
+                className="bg-futurie-purple-600 text-white text-sm font-bold px-4 py-2 rounded-lg shadow-xl whitespace-nowrap mobile-safe-text border border-futurie-purple-400"
+                style={{ 
+                  textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
+                }}
+              >
+                🚀 Join Now!
+              </div>
             </div>
           </div>
         </div>

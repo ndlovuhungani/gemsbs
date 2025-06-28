@@ -12,38 +12,66 @@
   --futurie-neutral: #737373;
 }
 
-/* Fixed Positioning Classes - Clean and Simple */
+/* Fixed Positioning Classes - Enhanced for Mobile/Tablet */
 .force-fixed-bottom-right {
   position: fixed !important;
   bottom: 24px !important;
   right: 24px !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
+  pointer-events: auto !important;
 }
 
 .force-fixed-bottom-center {
   position: fixed !important;
   bottom: 16px !important;
   left: 50% !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
   transform: translateX(-50%) !important;
+  pointer-events: auto !important;
 }
 
-/* Mobile positioning - Much higher to clear footer completely */
+/* Mobile and Tablet positioning - Much higher to clear footer completely */
 @media (max-width: 1023px) {
   .force-fixed-bottom-right {
-    bottom: 120px !important; /* Higher positioning to clear footer on mobile */
+    position: fixed !important;
+    bottom: 120px !important;
     right: 16px !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
   }
 
   .force-fixed-bottom-center {
-    bottom: 120px !important; /* Higher positioning to clear footer on mobile */
+    position: fixed !important;
+    bottom: 120px !important;
     left: 50% !important;
+    z-index: 99999 !important;
     transform: translateX(-50%) !important;
+    pointer-events: auto !important;
   }
 
   /* Add safe zone padding to main content */
   .mobile-button-safe-zone {
-    padding-bottom: 160px !important; /* Extra space for mobile buttons */
+    padding-bottom: 160px !important;
+  }
+}
+
+/* Tablet specific fixes */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .force-fixed-bottom-right {
+    position: fixed !important;
+    bottom: 100px !important;
+    right: 20px !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+  }
+
+  .force-fixed-bottom-center {
+    position: fixed !important;
+    bottom: 100px !important;
+    left: 50% !important;
+    z-index: 99999 !important;
+    transform: translateX(-50%) !important;
+    pointer-events: auto !important;
   }
 }
 
@@ -485,8 +513,16 @@ button:hover {
   outline-offset: 2px;
 }
 
-/* Mobile-specific fixes for text rendering */
+/* Mobile-specific fixes for text rendering and sticky positioning */
 @media (max-width: 1023px) {
+  /* Force all fixed elements to stay fixed */
+  .force-fixed-bottom-right,
+  .force-fixed-bottom-center {
+    position: fixed !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+  }
+  
   /* Ensure text doesn't disappear during animations on mobile */
   button, span, div {
     -webkit-transform: translateZ(0);
@@ -502,5 +538,25 @@ button:hover {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+}
+
+/* Additional mobile sticky fixes */
+@media (max-width: 767px) {
+  .force-fixed-bottom-right {
+    position: fixed !important;
+    bottom: 120px !important;
+    right: 12px !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+  }
+
+  .force-fixed-bottom-center {
+    position: fixed !important;
+    bottom: 120px !important;
+    left: 50% !important;
+    z-index: 99999 !important;
+    transform: translateX(-50%) !important;
+    pointer-events: auto !important;
   }
 }
